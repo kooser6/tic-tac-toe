@@ -88,9 +88,11 @@ class Game
         if (in_array($key, $keys) && $status['status'] === 0) {
             $board = $this->board->get();
             $converted = $this->board->convert($board);
-            $converted[$key] = $this->turn;
-            $convertedBack = $this->board->convertBack($converted);
-            $this->board->set($convertedBack);
+            if ($converted[$key] === 0) {
+                $converted[$key] = $this->turn;
+                $convertedBack = $this->board->convertBack($converted);
+                $this->board->set($convertedBack);
+            }
         }
     }
 
