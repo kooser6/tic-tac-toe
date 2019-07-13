@@ -55,19 +55,46 @@ class Board
     /**
      * Convert the board.
      *
+     * @param array The original board.
+     *
      * @return array The converted board.
      */
-    public function convert(): array
+    public function convert(array $board): array
     {
         $return = [];
-        reset($this->board);
-        foreach ($this->board as $square) {
+        reset($board);
+        foreach ($board as $square) {
             if ($square == '-') {
-                array_push($this->board, 0);
+                array_push($board, 0);
             } elseif ($square == 'x') {
-                array_push($this->board, 1);
+                array_push($board, 1);
             } elseif ($square == 'o') {
-                array_push($this->board, 2);
+                array_push($board, 2);
+            } else {
+                throw new Exception\UnexpectedValueException('The board is corrupt.');
+            }
+        }
+        return $return;
+    }
+
+    /**
+     * Convert the board back.
+     *
+     * @param array $board The converted board.
+     *
+     * @return array The original board.
+     */
+    public function convertBack($board): array
+    {
+        $return = [];
+        reset($board);
+        foreach ($board as $square) {
+            if ($square == 0) {
+                array_push($board, '-');
+            } elseif ($square == 1) {
+                array_push($board, 'x');
+            } elseif ($square == 2) {
+                array_push($board, 'o');
             } else {
                 throw new Exception\UnexpectedValueException('The board is corrupt.');
             }
