@@ -26,7 +26,7 @@ class BoardTest extends TestCase
         $converted = $board->convert($board_x);
         $this->assertTrue(is_array($converted));
         $this->assertTrue(!($converted === $board_x));
-        $convertedBack = $boardconvertBack($converted);
+        $convertedBack = $board->convertBack($converted);
         $this->assertTrue(is_array($convertedBack));
         $this->assertTrue(($convertedBack === $board_x));
         $board->reset();
