@@ -11,6 +11,7 @@ use function array_push;
 class Board
 {
 
+    /** @var array $board The tic tac toe board. */
     private $board = [
         '-', '-', '-',
         '-', '-', '-',
@@ -51,6 +52,11 @@ class Board
         $this->board = $board;
     }
 
+    /**
+     * Convert the board.
+     *
+     * @return array The converted board.
+     */
     public function convert(): array
     {
         $return = [];
