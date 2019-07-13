@@ -143,7 +143,7 @@ class Game
             $frames_num = count($frames);
             $result_arr = [];
             for ($x = 1; $x <= $frames_num; $x++) {
-                array_push($result_arr, $resultAlt)
+                array_push($result_arr, $resultAlt);
             }
             $this->classifier->train($frames, $resultAlt);
         }
