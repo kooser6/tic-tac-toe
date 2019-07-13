@@ -65,11 +65,11 @@ class Board
         reset($board);
         foreach ($board as $square) {
             if ($square == '-') {
-                array_push($board, 0);
+                array_push($return, 0);
             } elseif ($square == 'x') {
-                array_push($board, 1);
+                array_push($return, 1);
             } elseif ($square == 'o') {
-                array_push($board, 2);
+                array_push($return, 2);
             } else {
                 throw new Exception\UnexpectedValueException('The board is corrupt.');
             }
@@ -90,11 +90,11 @@ class Board
         reset($board);
         foreach ($board as $square) {
             if ($square == 0) {
-                array_push($board, '-');
+                array_push($return, '-');
             } elseif ($square == 1) {
-                array_push($board, 'x');
+                array_push($return, 'x');
             } elseif ($square == 2) {
-                array_push($board, 'o');
+                array_push($return, 'o');
             } else {
                 throw new Exception\UnexpectedValueException('The board is corrupt.');
             }
