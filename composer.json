@@ -1,0 +1,27 @@
+{
+    "name": "phoenix-zero-ai/tic-tac-toe",
+    "description": "A self-learning artificial intelligence written in php.",
+    "homepage": "https://github.com/phoenix-zero-ai/",
+    "keywords": [],
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.3",
+        "phoenix-zero-ai/neural-network": "^1.0"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^3",
+        "phpunit/phpunit": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phoenix\\Zero\\TicTacToe\\": "./src"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "prefer-stable": true
+}
