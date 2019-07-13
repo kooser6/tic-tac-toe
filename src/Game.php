@@ -1,0 +1,152 @@
+<?php declare(strict_types=1);
+
+namespace Phoenix\Zero\TicTacToe;
+
+use Phoenix\Zero\NeuralNetwork\Classifier;
+use Phoenix\Zero\NeuralNetwork\Manager;
+
+use function count;
+use function in_array;
+use function array_push;
+
+/**
+ * @class Game.
+ */
+class Game
+{
+
+    /** @var Classifier $classifier The neural network classifier. */
+    private $classifier;
+
+    /** @var Evaluation $evaluation The evaluation function for the self-learning AI. */
+    private $evaluation;
+
+    /** @var Status $status The game status handler. */
+    private $status;
+
+    /** @var Board $board The game board handler. */
+    private $board;
+
+    /**
+     * Construct a new game controller.
+     *
+     * @param Classifier $classifier The neural network classifier.
+     *
+     * @return void Returns nothing.
+     */
+    public function __construct(Classifier $classifier)
+    {
+        $this->manager = new Manager($classifier->returnInstance());
+        $this->evaluation = new Evaluation($classifier);
+        $this->status = new Status();
+        $this->board = new Board();
+    }
+
+    /**
+     * Reset the board.
+     *
+     * @return void Returns nothing.
+     */
+    public function reset(): void
+    {
+        $this->board->reset();
+    }
+
+    /**
+     * Make the AI move.
+     *
+     * @return void Returns nothing.
+     */
+    public function moveAI(): void
+    {
+        $status = $this->getStatus();
+        if ($status['status'] === 0) {
+            $board = $this->board->get();
+            $converted = $this->board->convert($board);
+            $predictedBoard = $this->evaluation->predict($board, $this->turn);
+            $convertedBack = $this->board->convertBack($predictedBoard);
+            $this->board->set($convertedBack);
+        }
+    }
+
+    /**
+     * Make a move.
+     *
+     * @param int $key The array key to place piece.
+     *
+     * @return void Returns nothing.
+     */
+    public function move(int $key): void
+    {
+        $keys = [
+            0, 1, 2,
+            3, 4, 5,
+            6, 7, 8,
+        ];
+        $key = $key - 1;
+        $status = $this->getStatus();
+        if (in_array($key, $keys) && $status['status'] === 0) {
+            $board = $this->board->get();
+            $converted = $this->board->convert($board);
+            $converted[$key] = $this->turn;
+            $convertedBack = $this->board->convertBack($converted);
+            $this->board->set($convertedBack);
+        }
+    }
+
+    /**
+     * Get the board status.
+     *
+     * @return array The board status.
+     */
+    public function getStatus(): array
+    {
+        $board = $this->board->get();
+        $converted = $this->board->convert($board);
+        return $this->status->gameOver($converted);
+    }
+
+    /**
+     * Allow the AI to self play games and train the neural network.
+     *
+     * @param int $numberOfGames The number of games to play.
+     *
+     * @return void Returns nothing.
+     */
+    public function selfPlay(int $numberOfGames = 10): void
+    {
+        for ($i = 1; $i <= $numberOfGames; $i++) {
+            $frames = [];
+            $this->reset();
+            $board = $this->board->get();
+            $converted = $this->board->convert($board);
+            array_push($frames, $converted);
+            $status = 0;
+            while ($status !== 1) {
+                $board = $this->board->get();
+                $converted = $this->board->convert($board);
+                $this->moveAI();
+                array_push($frames, $converted);
+                $statusAlt = $this->getStatus();
+                $status = $statusAlt['status'];
+            }
+            $result = $statusAlt['result'];
+            if ($result === 1) {
+                $resultAlt = 'x';
+            } elseif ($result === 2) {
+                $resultAlt = 'o';
+            } else {
+                $resultAlt = 'd'
+            }
+            $frames_num = count($frames);
+            $result_arr = [];
+            for ($x = 1; $x <= $frames_num; $x++) {
+                array_push($result_arr, $resultAlt)
+            }
+            $this->classifier->train($frames, $resultAlt);
+        }
+        $manager = new Manager($classifier->returnInstance());
+        $manager->setPath('networks');
+        $manager->save('tic-tac-toe');
+    }
+}
