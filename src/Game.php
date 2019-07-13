@@ -138,7 +138,7 @@ class Game
             } elseif ($result === 2) {
                 $resultAlt = 'o';
             } else {
-                $resultAlt = 'd'
+                $resultAlt = 'd';
             }
             $frames_num = count($frames);
             $result_arr = [];
