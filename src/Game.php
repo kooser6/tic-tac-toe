@@ -19,13 +19,13 @@ class Game
     private $classifier;
 
     /** @var Evaluation $evaluation The evaluation function for the self-learning AI. */
-    private $evaluation;
+    public $evaluation;
 
     /** @var Status $status The game status handler. */
-    private $status;
+    public $status;
 
     /** @var Board $board The game board handler. */
-    private $board;
+    public $board;
 
     /**
      * Construct a new game controller.
