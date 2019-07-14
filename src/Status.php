@@ -30,12 +30,13 @@ class Status
             [ 1, 4, 7, ],
             [ 2, 5, 8, ],
             [ 2, 4, 6, ],
+            [ 0, 4, 8, ],
             [ 3, 4, 5, ],
             [ 6, 7, 8, ],
         ];
         $x = 1;
         runAgain:
-        for ($e = 0; $e <= 7; $e++) {
+        for ($e = 0; $e <= 8; $e++) {
             if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
                 $status['result'] = $x;
             }
