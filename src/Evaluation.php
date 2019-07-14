@@ -16,7 +16,7 @@ class Evaluation
 {
 
     /** @var Classifier $classifier The neural network. */
-    private $neuralNetwork;
+    private $classifier;
 
     /**
      * Consruct a new tic tac toe evaluation.
@@ -33,8 +33,8 @@ class Evaluation
     /**
      * Return the next best move based on neural netowork.
      *
-     * @param string $board The tic tac toe board converted.
-     * @param int    $turn  The current sides move.
+     * @param array $board The tic tac toe board converted.
+     * @param int   $turn  The current sides move.
      *
      * @return array The new board based on AI predictions.
      */
