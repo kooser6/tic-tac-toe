@@ -39,10 +39,11 @@ class Game
      */
     public function __construct(Classifier $classifier)
     {
-        $this->manager = new Manager($classifier->returnInstance());
+        $this->classifier = $classifier;
         $this->evaluation = new Evaluation($classifier);
         $this->status = new Status();
         $this->board = new Board();
+        $this->turn = 1;
     }
 
     /**
@@ -162,9 +163,9 @@ class Game
             for ($x = 1; $x <= $frames_num; $x++) {
                 array_push($result_arr, $resultAlt);
             }
-            $this->classifier->train($frames, $resultAlt);
+            $this->classifier->train($frames, $result_arr);
         }
-        $manager = new Manager($classifier->returnInstance());
+        $manager = new Manager($this->classifier->returnInstance());
         $manager->setPath('networks');
         $manager->save('tic-tac-toe');
     }
