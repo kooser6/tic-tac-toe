@@ -27,6 +27,9 @@ class Game
     /** @var Board $board The game board handler. */
     public $board;
 
+    /** @var int $turn Whos turn is it to play. */
+    public $turn;
+
     /**
      * Construct a new game controller.
      *
@@ -66,6 +69,11 @@ class Game
             $predictedBoard = $this->evaluation->predict($board, $this->turn);
             $convertedBack = $this->board->convertBack($predictedBoard);
             $this->board->set($convertedBack);
+            if ($this->turn === 1) {
+                $this->turn = 2;
+            } else {
+                $this->turn = 1;
+            }
         }
     }
 
@@ -92,6 +100,11 @@ class Game
                 $converted[$key] = $this->turn;
                 $convertedBack = $this->board->convertBack($converted);
                 $this->board->set($convertedBack);
+                if ($this->turn === 1) {
+                    $this->turn = 2;
+                } else {
+                    $this->turn = 1;
+                }
             }
         }
     }
@@ -124,6 +137,7 @@ class Game
             $converted = $this->board->convert($board);
             array_push($frames, $converted);
             $status = 0;
+            $statusAlt = [];
             while ($status !== 1) {
                 $board = $this->board->get();
                 $converted = $this->board->convert($board);
@@ -131,6 +145,9 @@ class Game
                 array_push($frames, $converted);
                 $statusAlt = $this->getStatus();
                 $status = $statusAlt['status'];
+            }
+            if (empty($statusAlt)) {
+                exit;
             }
             $result = $statusAlt['result'];
             if ($result === 1) {
