@@ -22,36 +22,41 @@ class Status
     public function gameOver(array $board): array
     {
         $status = [];
-        $status['status'] = 0;
+        $status['result'] = null;
         reset($board);
-        if (($board[0] === 1 && $board[4] === 1 && $board[8] === 1)
-            || ($board[0] === 1 && $board[1] === 1 && $board[2] === 1)
-            || ($board[0] === 1 && $board[3] === 1 && $board[6] === 1)
-            || ($board[1] === 1 && $board[4] === 1 && $board[7] === 1)
-            || ($board[2] === 1 && $board[5] === 1 && $board[8] === 1)
-            || ($board[2] === 1 && $board[4] === 1 && $board[6] === 1)
-            || ($board[3] === 1 && $board[4] === 1 && $board[5] === 1)
-            || ($board[6] === 1 && $board[7] === 1 && $board[8] === 1)) {
-            $status['status'] = 1;
-            $status['result'] = 1;
-        } elseif (($board[0] === 1 && $board[4] === 1 && $board[8] === 1)
-            || ($board[0] === 2 && $board[1] === 2 && $board[2] === 2)
-            || ($board[0] === 2 && $board[3] === 2 && $board[6] === 2)
-            || ($board[1] === 2 && $board[4] === 2 && $board[7] === 2)
-            || ($board[2] === 2 && $board[5] === 2 && $board[8] === 2)
-            || ($board[2] === 2 && $board[4] === 2 && $board[6] === 2)
-            || ($board[3] === 2 && $board[4] === 2 && $board[5] === 2)
-            || ($board[6] === 2 && $board[7] === 2 && $board[8] === 2)) {
-            $status['status'] = 1;
-            $status['result'] = 2;
-        } else {
-            reset($board);
-            foreach ($board as $square) {
-                if ($square == 0) {
-                    $status['result'] = null;
-                    return $status;
-                }
+        $order = [
+            [ 0, 1, 2, ],
+            [ 0, 3, 6, ],
+            [ 1, 4, 7, ],
+            [ 2, 5, 8, ],
+            [ 2, 4, 6, ],
+            [ 3, 4, 5, ],
+            [ 6, 7, 8, ],
+        ];
+        $x = 1;
+        runAgain:
+        for ($e = 0; $e <= 8; $e++) {
+            if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
+                $status['result'] = $x;
             }
+        }
+        if ($x = 1) {
+            $x = 2;
+            runAgain;
+        }
+        if (!is_null($status['result'])) {
+            $status['status'] = 1;
+            return $status;
+        }
+        $status['status'] = 1;
+        reset($board);
+        foreach ($board as $square) {
+            if ($square == 0) {
+                $status['status'] = 0;
+            }
+        }
+        if ($status['status'] === 1) {
+            $status['result'] = 0;
         }
         return $status;
     }
