@@ -42,7 +42,7 @@ class Status
         }
         if ($x = 1) {
             $x = 2;
-            runAgain;
+            goto runAgain;
         }
         if (!is_null($status['result'])) {
             $status['status'] = 1;
