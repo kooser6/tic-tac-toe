@@ -35,16 +35,18 @@ class Status
             [ 6, 7, 8, ],
         ];
         $x = 1;
-        runAgain:
         for ($e = 0; $e <= 7; $e++) {
             if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
                 $status['result'] = $x;
                 goto skipSection;
             }
         }
-        if ($x = 1) {
-            $x = 2;
-            goto runAgain;
+        $x = 2;
+        for ($l = 0; $l <= 7; $l++) {
+            if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
+                $status['result'] = $x;
+                goto skipSection;
+            }
         }
         skipSection:
         if (!is_null($status['result'])) {
