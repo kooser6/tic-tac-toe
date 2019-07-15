@@ -36,7 +36,7 @@ class Status
         ];
         $x = 1;
         runAgain:
-        for ($e = 0; $e <= 8; $e++) {
+        for ($e = 0; $e <= 7; $e++) {
             if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
                 $status['result'] = $x;
             }
