@@ -4,7 +4,7 @@ namespace Phoenix\Zero\TicTacToe\Test;
 
 use PHPUnit\Framework\TestCase;
 
-use Phoenix\Zero\TicTacToe\Board;
+use Phoenix\Zero\TicTacToe\Game;
 use Phoenix\Zero\NeuralNetwork\Classifier;
 
 use Phpml\Classification\MLPClassifier;
