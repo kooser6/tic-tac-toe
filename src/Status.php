@@ -39,12 +39,14 @@ class Status
         for ($e = 0; $e <= 7; $e++) {
             if ($board[$order[$e][0]] === $x && $board[$order[$e][1]] === $x && $board[$order[$e][2]] === $x) {
                 $status['result'] = $x;
+                goto skipSection;
             }
         }
         if ($x = 1) {
             $x = 2;
             goto runAgain;
         }
+        skipSection:
         if (!is_null($status['result'])) {
             $status['status'] = 1;
             return $status;
