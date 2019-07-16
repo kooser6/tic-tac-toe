@@ -53,18 +53,15 @@ class Status
             $status['status'] = 1;
             return $status;
         }
-        $status['status'] = 1;
         reset($board);
         foreach ($board as $square) {
             if ($square == 0) {
-                var_dump('Echo');
                 $status['status'] = 0;
-                break;
+                return $status;
             }
         }
-        if ($status['status'] === 1) {
-            $status['result'] = 0;
-        }
+        $status['status'] = 1;
+        $status['result'] = 0;
         return $status;
     }
 }
