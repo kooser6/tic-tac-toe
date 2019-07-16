@@ -68,6 +68,8 @@ class Game
             $board = $this->board->get();
             $converted = $this->board->convert($board);
             $predictedBoard = $this->evaluation->predict($board, $this->turn);
+            var_dump($predictedBoard);
+            exit;
             $convertedBack = $this->board->convertBack($predictedBoard);
             $this->board->set($convertedBack);
             if ($this->turn === 1) {
