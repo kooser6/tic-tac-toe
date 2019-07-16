@@ -23,8 +23,6 @@ class StatusTest extends TestCase
         $classifier = new Classifier($pre_classifier);
         $controller = new Game($classifier);
         $status = $controller->getStatus();
-        var_dump($status);
-        exit;
         $this->assertTrue(($status['status'] === 1));
         $controller->moveAI();
         $status = $controller->getStatus();
