@@ -57,6 +57,7 @@ class Status
         reset($board);
         foreach ($board as $square) {
             if ($square == 0) {
+                var_dump('Echo');
                 $status['status'] = 0;
             }
         }
