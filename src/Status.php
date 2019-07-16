@@ -59,6 +59,7 @@ class Status
             if ($square == 0) {
                 var_dump('Echo');
                 $status['status'] = 0;
+                break;
             }
         }
         if ($status['status'] === 1) {
