@@ -50,15 +50,13 @@ class Evaluation
                 $boardAlt = $board;
                 $boardAlt[$x] = $turn;
                 $result = $this->classifier->predict([$boardAlt]);
-                var_dump(is_array($result));
-                exit;
-                if ($result === 'x') {
+                if ($result[0] === 'x') {
                     if ($turn === 1) {
                         array_push($wins, $boardAlt);
                     } else {
                         array_push($lost, $boardAlt);
                     }
-                } elseif ($result === 'o') {
+                } elseif ($result[0] === 'o') {
                     if ($turn === 2) {
                         array_push($wins, $boardAlt);
                     } else {
