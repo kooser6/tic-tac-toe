@@ -49,6 +49,8 @@ class StatusTest extends TestCase
         $status = $controller->getStatus();
         $this->assertTrue(($status['status'] == 0));
         $controller->moveAI();
+        var_dump($controller->board->get());
+        exit;
         $status = $controller->getStatus();
         $this->assertTrue(($status['status'] == 1));
         $controller->reset();
