@@ -67,7 +67,7 @@ class Game
         if ($status['status'] === 0) {
             $board = $this->board->get();
             $converted = $this->board->convert($board);
-            $predictedBoard = $this->evaluation->predict($board, $this->turn);
+            $predictedBoard = $this->evaluation->predict($converted, $this->turn);
             $convertedBack = $this->board->convertBack($predictedBoard);
             $this->board->set($convertedBack);
             if ($this->turn === 1) {

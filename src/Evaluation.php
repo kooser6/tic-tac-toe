@@ -44,11 +44,10 @@ class Evaluation
         $draw = [];
         $lost = [];
         reset($board);
-        $x = 0;
-        foreach ($board as $square) {
+        foreach ($board as $id => $square) {
             if ($square === 0) {
                 $boardAlt = $board;
-                $boardAlt[$x] = $turn;
+                $boardAlt[$id] = $turn;
                 $result = $this->classifier->predict([$boardAlt]);
                 if ($result[0] === 'x') {
                     if ($turn === 1) {
@@ -66,7 +65,6 @@ class Evaluation
                     array_push($draw, $boardAlt);
                 }
             }
-            $x++;
         }
         $wins_num = count($wins);
         $lost_num = count($lost);

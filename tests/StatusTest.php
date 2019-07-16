@@ -33,24 +33,6 @@ class StatusTest extends TestCase
         $controller->moveAI();
         $status = $controller->getStatus();
         $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 0));
-        $controller->moveAI();
-        $status = $controller->getStatus();
-        $this->assertTrue(($status['status'] == 1));
         $controller->reset();
         $this->assertTrue(($status['status'] == 0));
     }
