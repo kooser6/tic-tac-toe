@@ -111,6 +111,23 @@ class Game
     }
 
     /**
+     * Print the tic tac toe board.
+     *
+     * @return void Returns nothing.
+     */
+    public function printBoard(): void
+    {
+        $board = $this->board->get();
+        echo "+---+---+---+\n";
+        echo "| $board[0] | $board[1] | $board[2] |\n";
+        echo "+---+---+---+\n";
+        echo "| $board[3] | $board[4] | $board[5] |\n";
+        echo "+---+---+---+\n";
+        echo "| $board[6] | $board[7] | $board[8] |\n";
+        echo "+---+---+---+\n";
+    }
+
+    /**
      * Get the board status.
      *
      * @return array The board status.
@@ -156,7 +173,7 @@ class Game
             } elseif ($result === 2) {
                 $resultAlt = 'o';
             } else {
-                $resultAlt = 'd';
+                $resultAlt = '-';
             }
             $frames_num = count($frames);
             $result_arr = [];
@@ -164,9 +181,11 @@ class Game
                 array_push($result_arr, $resultAlt);
             }
             $this->classifier->train($frames, $result_arr);
+            $manager = new Manager($this->classifier->returnInstance());
+            $manager->setPath('networks');
+            $manager->save('TicTacToe');
+            echo "Game $i completed.\n";
         }
-        $manager = new Manager($this->classifier->returnInstance());
-        $manager->setPath('networks');
-        $manager->save('tic-tac-toe');
+        echo "Network trained.\n";
     }
 }
